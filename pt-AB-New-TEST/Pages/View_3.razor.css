@@ -1,0 +1,32 @@
+.row-layout {
+    display: flex;
+}
+.view-3-container {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: flex-start;
+    overflow: auto;
+    height: 100%;
+}
+.card {
+    margin: 5px;
+    width: 320px;
+    height: max-content;
+    min-width: 320px;
+    flex-shrink: 0;
+}
+.media-content {
+    height: 400px;
+}
+.actions-content {
+    min-width: 50px;
+    min-height: 40px;
+}
+.avatar {
+    --background: none;
+    --ig-gray-400: transparent;
+}
+.image {
+    height: 100%;
+}

@@ -1,0 +1,47 @@
+@page "/view_2"
+@using PtTEST
+@using ProjectTracker
+@using Customer370Dashboards
+@using NorthwindCloudApp
+@inject IProjectTrackerService projectTrackerService
+@inject ICustomer370DashboardsService customer370DashboardsService
+@inject INorthwindCloudAppService northwindCloudAppService
+
+<div class="column-layout view-2-container">
+    <div class="column-layout group">
+        <IgbCombo Outlined="true" Data="projectTrackerSpSelectProjectsResult" Label="Projects" ValueKey="projectId" DisplayKey="projectName" autoFocusSearch="true" class="combo" view_2-scope></IgbCombo>
+    </div>
+    <div class="row-layout group_1">
+        <div class="column-layout group_2">
+            <IgbList class="list" view_2-scope>
+                @foreach (var item in customer370DashboardsDashboards)
+                {
+                    <IgbListItem>
+                        <IgbAvatar Src="@item.AddedByImageUrl" slot="start" Shape="AvatarShape.Circle" class="avatar" view_2-scope></IgbAvatar>
+                        <div slot="title">@item.Title</div>
+                        <div slot="subtitle">@item.AddedBy</div>
+                        <span slot="end" class="material-icons icon">
+                            star
+                        </span>
+                    </IgbListItem>
+                }
+            </IgbList>
+        </div>
+        <div class="column-layout group_3">
+            <IgbCategoryChart DataSource="northwindCloudAppCustomer" ChartType="CategoryChartType.Column" InitialGroups="Country" ComputedPlotAreaMarginMode="ComputedPlotAreaMarginMode.Series" class="category-chart" view_2-scope></IgbCategoryChart>
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<sp_Select_ProjectsResult> projectTrackerSpSelectProjectsResult = new();
+    private List<DashboardsType> customer370DashboardsDashboards = new();
+    private List<Customer> northwindCloudAppCustomer = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        projectTrackerSpSelectProjectsResult = await projectTrackerService.Getsp_Select_ProjectsResult();
+        customer370DashboardsDashboards = await customer370DashboardsService.GetDashboards();
+        northwindCloudAppCustomer = await northwindCloudAppService.GetCustomer();
+    }
+}

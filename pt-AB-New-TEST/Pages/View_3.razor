@@ -1,0 +1,59 @@
+@page "/view_3"
+@using PtTEST
+@using ProjectTracker
+@using Customer370Dashboards
+@using NorthwindCloudApp
+@inject ICustomer370DashboardsService customer370DashboardsService
+
+<div class="row-layout view-3-container">
+    @foreach (var item in customer370DashboardsDashboards)
+    {
+        <IgbCard Outlined="true" class="card" view_3-scope>
+            <IgbCardHeader>
+                <div slot="thumbnail">
+                    <IgbAvatar Shape="AvatarShape.Circle" class="avatar" view_3-scope>
+                        <span class="material-icons">person</span>
+                    </IgbAvatar>
+                </div>
+                <h3 slot="title">
+                    @item.Title
+                </h3>
+                <h5 slot="subtitle">
+                    @item.AddedBy
+                </h5>
+            </IgbCardHeader>
+            <IgbCardMedia class="media-content" view_3-scope>
+                <img src="@item.ThumbnailURL" class="image" />
+            </IgbCardMedia>
+            <IgbCardActions class="actions-content" view_3-scope>
+                <IgbIconButton Variant="IconButtonVariant.Flat">
+                    <span class="material-icons">
+                        favorite
+                    </span>
+                    <IgbRipple></IgbRipple>
+                </IgbIconButton>
+                <IgbIconButton Variant="IconButtonVariant.Flat">
+                    <span class="material-icons">
+                        bookmark
+                    </span>
+                    <IgbRipple></IgbRipple>
+                </IgbIconButton>
+                <IgbIconButton Variant="IconButtonVariant.Flat">
+                    <span class="material-icons">
+                        share
+                    </span>
+                    <IgbRipple></IgbRipple>
+                </IgbIconButton>
+            </IgbCardActions>
+        </IgbCard>
+    }
+</div>
+
+@code {
+    private List<DashboardsType> customer370DashboardsDashboards = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        customer370DashboardsDashboards = await customer370DashboardsService.GetDashboards();
+    }
+}
